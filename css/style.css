@@ -5,5 +5,25 @@
 
 .centered
 {
+	text-align: center;	
+}
+
+.teacher-prompt
+{
+	border-bottom: 1px #ccc solid;
+}
+
+#question_input
+{
+	margin-top: 30px;
+}
+
+#question_output
+{
 	text-align: center;
+}
+
+.hide
+{
+	display: none;
 }

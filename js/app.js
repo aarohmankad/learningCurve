@@ -2,13 +2,56 @@ $(document).ready(function () {
 	
 	var firebase = new Firebase('https://learning-curve.firebaseio.com/');
 
-	$( "#question-input" ).keypress(function( event ) {
+	$( "#answer_input" ).keypress(function( event ) {
 
 		if ( event.which == 13 ) {
-			alert("Enter was pressed");
-			firebase.set({
-				question: $("#question-input").val(),
-			});
+			setQuestion();
 		}
 	});
+
+	$( ".submit-question" ).on('click',function( event ) {
+		setQuestion();
+	});
+
+	$( "#student-answer" ).keypress(function( event ) {
+
+		if ( event.which == 13 ) {
+			checkAnswer();
+		}
+	});
+
+	$( ".submit-answer" ).on('click',function( event ) {
+		checkAnswer();
+	});
+
+	$( "#anotherQuestion" ).on('click',function( event ) {
+		$(".student-row").addClass("hide");
+		$(".teacher-row").removeClass("hide");
+	});
+
+	function setQuestion () {
+		firebase.set({
+			question: $("#question_input").val(),
+			answer: $("#answer_input").val(),
+		});
+		firebase.on('value', function (snapshot) {
+
+			var question = snapshot.val().question;
+
+			$("#question_output").html(question);
+		});
+		$(".student-row").removeClass("hide");
+		$(".teacher-row").addClass("hide");
+	}
+	function checkAnswer () {
+		firebase.on('value', function (snapshot) {
+
+			var answer = snapshot.val().answer;
+
+			if($("#student-answer").val() == answer)
+			{
+				// If correct answer is given.
+			}
+		});	
+	}
 });
