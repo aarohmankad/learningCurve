@@ -1,7 +1,5 @@
 $(document).ready(function () {
-	
 	var firebase = new Firebase('https://learning-curve.firebaseio.com/');
-
 	$( "#answer_input" ).keypress(function( event ) {
 
 		if ( event.which == 13 ) {
@@ -30,11 +28,12 @@ $(document).ready(function () {
 	});
 
 	function setQuestion () {
-		firebase.set({
+		firebaseRoom = new Firebase('https://learning-curve.firebaseio.com/' + $("#room_input").val());
+		firebaseRoom.set({
 			question: $("#question_input").val(),
 			answer: $("#answer_input").val(),
 		});
-		firebase.on('value', function (snapshot) {
+		firebaseRoom.on('value', function (snapshot) {
 
 			var question = snapshot.val().question;
 
@@ -44,7 +43,7 @@ $(document).ready(function () {
 		$(".teacher-row").addClass("hide");
 	}
 	function checkAnswer () {
-		firebase.on('value', function (snapshot) {
+		firebaseRoom.on('value', function (snapshot) {
 
 			var answer = snapshot.val().answer;
 
