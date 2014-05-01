@@ -27,8 +27,19 @@ $(document).ready(function () {
 		$(".teacher-row").removeClass("hide");
 	});
 
+	$( "#room_join_input" ).keypress(function( event ) {
+
+		if ( event.which == 13 ) {
+			joinRoom();
+		}
+	});
+
+	$( ".submit-room-name" ).on('click',function( event ) {
+		joinRoom();
+	});
+
 	function setQuestion () {
-		firebaseRoom = new Firebase('https://learning-curve.firebaseio.com/' + $("#room_input").val());
+		var firebaseRoom = new Firebase('https://learning-curve.firebaseio.com/' + $("#room_join_input").val());
 		firebaseRoom.set({
 			question: $("#question_input").val(),
 			answer: $("#answer_input").val(),
@@ -52,5 +63,17 @@ $(document).ready(function () {
 				// If correct answer is given.
 			}
 		});	
+	}
+	function joinRoom () {
+		var joinFirebaseRoom = new Firebase('https://learning-curve.firebaseio.com/' + $("#room_join_input").val());
+		
+		joinFirebaseRoom.on('value', function (snapshot) {
+
+			var question = snapshot.val().question;
+
+			$("#question_output").html(question);
+		});
+		$(".student-row").removeClass("hide");
+		$(".teacher-row").addClass("hide");
 	}
 });
