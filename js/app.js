@@ -39,7 +39,7 @@ $(document).ready(function () {
 	});
 
 	function setQuestion () {
-		var firebaseRoom = new Firebase('https://learning-curve.firebaseio.com/' + $("#room_join_input").val());
+		var firebaseRoom = new Firebase('https://learning-curve.firebaseio.com/' + $("#room_input").val());
 		firebaseRoom.set({
 			question: $("#question_input").val(),
 			answer: $("#answer_input").val(),
@@ -52,7 +52,7 @@ $(document).ready(function () {
 		});
 		$(".student-row").removeClass("hide");
 		$(".teacher-row").addClass("hide");
-	}
+	} 
 	function checkAnswer () {
 		firebaseRoom.on('value', function (snapshot) {
 
@@ -60,7 +60,10 @@ $(document).ready(function () {
 
 			if($("#student-answer").val() == answer)
 			{
-				// If correct answer is given.
+				alert("correct!");
+			}else
+			{
+				alert("Sorry, you either have the wrong answer or it's just a little off.");
 			}
 		});	
 	}
