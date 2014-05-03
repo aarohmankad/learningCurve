@@ -1,3 +1,12 @@
+body
+{
+	background-color: #488CD7;
+}
+ body *
+{
+	color: white;
+}
+
 .row
 {
 	min-width: 100%;
@@ -8,6 +17,32 @@
 	text-align: center;	
 }
 
+.top-bar
+{
+	height: 80px;
+}
+
+.name h1 a
+{
+	line-height: 80px;
+	font-size: 28px;
+}
+
+.pick-panel
+{
+	text-align: center;
+	border: 2px white solid;
+	margin: 38px;
+	padding: 15px;
+	height: 350px;
+}
+
+.pick-panel h2
+{
+	margin: 0;
+	padding: 0;
+	line-height: 300px;
+}
 .teacher-prompt
 {
 	border-bottom: 1px #ccc solid;
