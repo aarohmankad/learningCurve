@@ -37,6 +37,28 @@ body
 	height: 350px;
 }
 
+.pick-panel:hover
+{
+	border:5px white solid;
+
+	-webkit-transition: .2s ease;
+	-moz-transition: .2s ease;
+	-o-transition: .2s ease;
+	-ms-transition: .2s ease;
+	transition: .2s ease;
+}
+
+.pick-panel:hover h2
+{
+	font-weight: bold;
+
+	-webkit-transition: 1.5s ease;
+	-moz-transition: 1.5s ease;
+	-o-transition: 1.5s ease;
+	-ms-transition: 1.5s ease;
+	transition: 1.5s ease;
+}
+
 .pick-panel h2
 {
 	margin: 0;
