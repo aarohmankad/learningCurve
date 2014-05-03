@@ -38,12 +38,7 @@ $(document).ready(function () {
 			alert("Please enter an answer");
 		}
 	});
-
-	$( "#anotherQuestion" ).on('click',function( event ) {
-		$(".student-row").addClass("hide");
-		$(".teacher-row").removeClass("hide");
-	});
-
+	
 	$( "#room_join_input" ).keypress(function( event ) {
 
 		if ( event.which == 13 ) {
@@ -67,8 +62,6 @@ $(document).ready(function () {
 
 			$("#question_output").html(question);
 		});
-		$(".student-row").removeClass("hide");
-		$(".teacher-row").addClass("hide");
 	} 
 	function checkAnswer () {
 		var firebaseRoom = new Firebase('https://learning-curve.firebaseio.com/' + $("#room_join_input").val());
