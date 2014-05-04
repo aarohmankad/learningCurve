@@ -1,3 +1,6 @@
+@import url(http://fonts.googleapis.com/css?family=Rufina);
+@import url(http://fonts.googleapis.com/css?family=Sintony);
+
 body
 {
 	background-color: #488CD7;
@@ -5,6 +8,11 @@ body
  body *
 {
 	color: white;
+}
+
+input, .button
+{
+	font-family: 'Sintony', sans-serif !important;
 }
 
 .row
@@ -32,7 +40,7 @@ body
 {
 	text-align: center;
 	border: 2px white solid;
-	margin: 38px;
+	margin-top: 50px;
 	padding: 15px;
 	height: 350px;
 }
@@ -59,15 +67,23 @@ body
 	transition: 1.5s ease;
 }
 
-.pick-panel h2
+.panel-head
 {
 	margin: 0;
 	padding: 0;
-	line-height: 300px;
+	margin-top: 80px;
+	font-family: 'Rufina', serif;
 }
-.teacher-prompt
+
+.panel-img
+{
+	margin-top: 75px;
+}
+
+.teacher-prompt, .student-prompt
 {
 	border-bottom: 1px #ccc solid;
+	font-family: 'Rufina', serif;
 }
 
 #question_input
