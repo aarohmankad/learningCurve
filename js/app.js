@@ -1,7 +1,6 @@
 $(document).ready(function () {
 	var correctAnswers = 0;
 	var incorrectAnswers = 0;
-	var answered = false;
 	var firebase = new Firebase('https://learning-curve.firebaseio.com/');
 	$( "#answer_input" ).keypress(function( event ) {
 
@@ -22,20 +21,12 @@ $(document).ready(function () {
 				checkAnswer();
 			}
 		}
-		else
-		{
-			alert("Please enter an answer");
-		}
 	});
 
 	$( ".submit-answer" ).on('click',function( event ) {
 		if($("#student-answer").val() != "")
 		{
 			checkAnswer();
-		}
-		else
-		{
-			alert("Please enter an answer");
 		}
 	});
 	
@@ -55,6 +46,7 @@ $(document).ready(function () {
 		firebaseRoom.set({
 			question: $("#question_input").val(),
 			answer: $("#answer_input").val(),
+			answered: false
 		});
 		firebaseRoom.on('value', function (snapshot) {
 
@@ -68,9 +60,11 @@ $(document).ready(function () {
 		firebaseRoom.on('value', function (snapshot) {
 
 			var answer = snapshot.val().answer;
-			if($("#student-answer").val() == answer && answered == false)
+			var answered = snapshot.val().answered;
+			if($("#student-answer").val().toLowerCase() == answer.toLowerCase() && answered == false)
 			{
 				correctAnswers++;
+				answered = true;
 			}else if(answered == false)
 			{
 				incorrectAnswers++;
@@ -78,7 +72,6 @@ $(document).ready(function () {
 		});
 		$(".correct").html(correctAnswers + " correct answers.");
 		$(".incorrect").html(incorrectAnswers + " incorrect answers.");
-		answered = true;
 	}
 	function joinRoom () {
 		var joinFirebaseRoom = new Firebase('https://learning-curve.firebaseio.com/' + $("#room_join_input").val());
