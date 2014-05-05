@@ -1,6 +1,4 @@
 $(document).ready(function () {
-	var correctAnswers = 0;
-	var incorrectAnswers = 0;
 	var firebase = new Firebase('https://learning-curve.firebaseio.com/');
 	$( "#answer_input" ).keypress(function( event ) {
 
@@ -46,7 +44,8 @@ $(document).ready(function () {
 		firebaseRoom.set({
 			question: $("#question_input").val(),
 			answer: $("#answer_input").val(),
-			answered: false
+			correctAnswers: 0,
+			incorrectAnswers: 0,
 		});
 		firebaseRoom.on('value', function (snapshot) {
 
@@ -57,21 +56,30 @@ $(document).ready(function () {
 	} 
 	function checkAnswer () {
 		var firebaseRoom = new Firebase('https://learning-curve.firebaseio.com/' + $("#room_join_input").val());
-		firebaseRoom.on('value', function (snapshot) {
+		firebaseRoom.once('value', function (snapshot) {
 
 			var answer = snapshot.val().answer;
-			var answered = snapshot.val().answered;
-			if($("#student-answer").val().toLowerCase() == answer.toLowerCase() && answered == false)
+			var correctAnswersPrev = snapshot.val().correctAnswers;
+			var incorrectAnswersPrev = snapshot.val().incorrectAnswers;
+			console.log("Correct Answers: " + correctAnswersPrev + " Incorrect Answers: " + incorrectAnswersPrev);
+			if($("#student-answer").val().toLowerCase() == answer.toLowerCase())
 			{
-				correctAnswers++;
-				answered = true;
-			}else if(answered == false)
+				firebaseRoom.update({
+					correctAnswers: correctAnswersPrev+1
+				});
+			}else
 			{
-				incorrectAnswers++;
+				firebaseRoom.update({
+					incorrectAnswers: incorrectAnswersPrev+1
+				});
 			}
+			firebaseRoom.once('value', function (snapshot) {
+				var correctAnswers = snapshot.val().correctAnswers;
+				var incorrectAnswers = snapshot.val().incorrectAnswers;
+				$(".correct").html(correctAnswers + " correct answers.");
+				$(".incorrect").html(incorrectAnswers + " incorrect answers.");
+			})
 		});
-		$(".correct").html(correctAnswers + " correct answers.");
-		$(".incorrect").html(incorrectAnswers + " incorrect answers.");
 	}
 	function joinRoom () {
 		var joinFirebaseRoom = new Firebase('https://learning-curve.firebaseio.com/' + $("#room_join_input").val());
