@@ -41,17 +41,42 @@ $(document).ready(function () {
 
 	function setQuestion () {
 		var firebaseRoom = new Firebase('https://learning-curve.firebaseio.com/' + $("#room_input").val());
-		firebaseRoom.set({
-			question: $("#question_input").val(),
-			answer: $("#answer_input").val(),
-			correctAnswers: 0,
-			incorrectAnswers: 0,
-		});
-		firebaseRoom.on('value', function (snapshot) {
+		firebaseRoom.once('value', function (snapshot) {
+			if(snapshot.val() !== null)
+			{
+				var havePassword = snapshot.val().password;
 
-			var question = snapshot.val().question;
+				if(havePassword == $("#password_input").val())
+				{
+					firebaseRoom.set({
+						question: $("#question_input").val(),
+						answer: $("#answer_input").val(),
+						password: $("#password_input").val(),
+						correctAnswers: 0,
+						incorrectAnswers: 0,
+					});
+					firebaseRoom.on('value', function (snapshot) {
 
-			$("#question_output").html(question);
+						var question = snapshot.val().question;
+
+						$("#question_output").html(question);
+					});
+				}
+			}else{
+				firebaseRoom.set({
+					question: $("#question_input").val(),
+					answer: $("#answer_input").val(),
+					password: $("#password_input").val(),
+					correctAnswers: 0,
+					incorrectAnswers: 0,
+				});
+				firebaseRoom.on('value', function (snapshot) {
+
+					var question = snapshot.val().question;
+
+					$("#question_output").html(question);
+				});
+			}
 		});
 	} 
 	function checkAnswer () {
