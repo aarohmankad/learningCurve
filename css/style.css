@@ -100,3 +100,9 @@ input, .button
 {
 	display: none;
 }
+
+#correctnessChart
+{
+	display: block;
+	margin: 0 auto;
+}

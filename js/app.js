@@ -61,7 +61,6 @@ $(document).ready(function () {
 			var answer = snapshot.val().answer;
 			var correctAnswersPrev = snapshot.val().correctAnswers;
 			var incorrectAnswersPrev = snapshot.val().incorrectAnswers;
-			console.log("Correct Answers: " + correctAnswersPrev + " Incorrect Answers: " + incorrectAnswersPrev);
 			if($("#student-answer").val().toLowerCase() == answer.toLowerCase())
 			{
 				firebaseRoom.update({
@@ -76,8 +75,27 @@ $(document).ready(function () {
 			firebaseRoom.once('value', function (snapshot) {
 				var correctAnswers = snapshot.val().correctAnswers;
 				var incorrectAnswers = snapshot.val().incorrectAnswers;
-				$(".correct").html(correctAnswers + " correct answers.");
-				$(".incorrect").html(incorrectAnswers + " incorrect answers.");
+				// Update the chart
+				var data = 
+				[
+					{
+						value: correctAnswers/(correctAnswers+incorrectAnswers),
+						color:"#F7464A"
+					},
+					{
+						value: incorrectAnswers/(correctAnswers+incorrectAnswers),
+						color : "#47F573"
+					}
+				]
+
+				var options = 
+				{
+					segmentShowStroke: false,
+					percentageInnerCutout: 25,
+				}
+				var ctx = $("#correctnessChart").get(0).getContext("2d");
+				//This will get the first returned node in the jQuery collection.
+				var correctnessChart = new Chart(ctx).Doughnut(data,options);
 			})
 		});
 	}
@@ -93,4 +111,5 @@ $(document).ready(function () {
 		$(".student-row").removeClass("hide");
 		$(".teacher-row").addClass("hide");
 	}
+
 });
