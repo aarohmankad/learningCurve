@@ -80,11 +80,11 @@ $(document).ready(function () {
 				[
 					{
 						value: correctAnswers/(correctAnswers+incorrectAnswers),
-						color:"#F7464A"
+						color:"#47F573"
 					},
 					{
 						value: incorrectAnswers/(correctAnswers+incorrectAnswers),
-						color : "#47F573"
+						color : "#F7464A"
 					}
 				]
 
