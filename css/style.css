@@ -106,3 +106,8 @@ input, .button
 	display: block;
 	margin: 0 auto;
 }
+
+#moreQuestions:hover
+{
+	cursor: pointer;
+}

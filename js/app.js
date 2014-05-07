@@ -7,7 +7,7 @@ $(document).ready(function () {
 		}
 	});
 
-	$( ".submit-question" ).on('click',function( event ) {
+	$( ".submit-question" ).on('click',function() {
 		setQuestion();
 	});
 
@@ -21,7 +21,7 @@ $(document).ready(function () {
 		}
 	});
 
-	$( ".submit-answer" ).on('click',function( event ) {
+	$( ".submit-answer" ).on('click',function() {
 		if($("#student-answer").val() != "")
 		{
 			checkAnswer();
@@ -35,8 +35,12 @@ $(document).ready(function () {
 		}
 	});
 
-	$( ".submit-room-name" ).on('click',function( event ) {
+	$( ".submit-room-name" ).on('click',function() {
 		joinRoom();
+	});
+
+	$("#moreQuestions").on('click', function() {
+		$("#answer_input").after('<input type="text" id="question_input" placeholder="Question"><input type="text" id="answer_input" placeholder="Answer">');
 	});
 
 	function setQuestion () {
