@@ -1,5 +1,6 @@
 $(document).ready(function () {
 	var firebase = new Firebase('https://learning-curve.firebaseio.com/');
+	
 	$( "#answer_input" ).keypress(function( event ) {
 
 		if ( event.which == 13 ) {
@@ -37,10 +38,6 @@ $(document).ready(function () {
 
 	$( ".submit-room-name" ).on('click',function() {
 		joinRoom();
-	});
-
-	$("#moreQuestions").on('click', function() {
-		$("#answer_input").after('<input type="text" id="question_input" placeholder="Question"><input type="text" id="answer_input" placeholder="Answer">');
 	});
 
 	function setQuestion () {
@@ -85,6 +82,7 @@ $(document).ready(function () {
 	} 
 	function checkAnswer () {
 		var firebaseRoom = new Firebase('https://learning-curve.firebaseio.com/' + $("#room_join_input").val());
+		var team = Math.floor(Math.random()*2+1);
 		firebaseRoom.once('value', function (snapshot) {
 
 			var answer = snapshot.val().answer;
@@ -122,10 +120,10 @@ $(document).ready(function () {
 					segmentShowStroke: false,
 					percentageInnerCutout: 25,
 				}
-				var ctx = $("#correctnessChart").get(0).getContext("2d");
+				var ctx = $("#team1").get(0).getContext("2d");
 				//This will get the first returned node in the jQuery collection.
 				var correctnessChart = new Chart(ctx).Doughnut(data,options);
-			})
+			});
 		});
 	}
 	function joinRoom () {
